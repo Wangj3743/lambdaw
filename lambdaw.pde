@@ -34,9 +34,5 @@ void draw() {
   //fill()
   //rect();
 
-  //a.playSound();
-  //b.playSound();
-  //c.playSound();
-  //d.playSound();
   sinTrack.playInstrument();
 }

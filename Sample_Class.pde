@@ -17,11 +17,11 @@ class Sample {
   
   // pitch from music note
   Sample(String s, float a, int d, String n, int o) {
-    src = s;
+    src = s;                                    // when finding source, regex for sine and etc
     amp = a;
     dur = d;
     freq = noteToHz(n, o);
-    println(n, o, noteToHz(n, o));
+    //println(n, o, noteToHz(n, o));
   }
   
   

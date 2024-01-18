@@ -6,26 +6,27 @@ void importProject(String[] fileImport) {
   int indexTRIANGLE = 0;
   int indexSAW = 0;
   
+  // find index of titles
   for (int i=0; i<fileImport.length; ++i) {              // switch to binary search!!!!!!
     if (fileImport[i].equals("# META")) 
       indexMETA = i;
     else if (fileImport[i].equals("# SCORE"))
       indexSCORE = i;
+    else if (fileImport[i].equals("## SINE"))
+      indexSINE = i;
+    else if (fileImport[i].equals("## SQUARE"))
+      indexSQUARE = i;
+    else if (fileImport[i].equals("## TRIANGLE"))
+      indexTRIANGLE = i;
+    else if (fileImport[i].equals("## SAW"))
+      indexSAW = i;
   }
   
-  
-  for (int i=indexSCORE+2; i<33; ++i) {            // fix the ending cond. do it for sqr, tri, saw with nested
-    String curr = fileImport[i];
-    int[] commas = findCommas(curr, 3);
-    
-    String s = "sine";                                    // source
-    float a = float(curr.substring(0, commas[0]));        // amplitude
-    int d = int(curr.substring(commas[0]+2, commas[1]));  // duration
-    String n = curr.substring(commas[1]+2, commas[2]);  // note
-    int o = int(curr.substring(commas[2]+2, curr.length()));  // octave
-    
-    sinTrack.samples.add(new Sample(s, a, d, n, o));
-  }
+  // import waveforms
+  importWaveform(fileImport, "sine", indexSINE, indexSQUARE);
+  importWaveform(fileImport, "square", indexSQUARE, indexTRIANGLE);
+  importWaveform(fileImport, "triangle", indexTRIANGLE, indexSAW);
+  importWaveform(fileImport, "saw", indexSAW, fileImport.length);
 }
 
 
@@ -51,4 +52,26 @@ int[] findCommas(String curr, int numPara) {             // account for other co
     }
   }
   return commas;
+}
+
+
+void importWaveform(String[] fileImport, String waveForm, int index1, int index2) {
+    for (int j=index1+1; j<index2-1; ++j) {
+      String curr = fileImport[j];
+      int[] commas = findCommas(curr, 3);
+      String s = waveForm;                                      // source
+      float a = float(curr.substring(0, commas[0]));            // amplitude
+      int d = int(curr.substring(commas[0]+2, commas[1]));      // duration
+      String n = curr.substring(commas[1]+2, commas[2]);        // note
+      int o = int(curr.substring(commas[2]+2, curr.length()));  // octave
+      println(s, a, d, n, o);
+      if (s.equals("sine"))
+        sinTrack.samples.add(new Sample(s, a, d, n, o));
+      else if (s.equals("square"))
+        sqrTrack.samples.add(new Sample(s, a, d, n, o));
+      else if (s.equals("triangle"))
+        triTrack.samples.add(new Sample(s, a, d, n, o));
+      else if (s.equals("saw"))
+        sawTrack.samples.add(new Sample(s, a, d, n, o));
+    }
 }

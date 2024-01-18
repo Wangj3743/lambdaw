@@ -1,34 +1,49 @@
 class Sample {
   // fields
-  String src;
-  int amp;
-  int freq;
-  String note;
+  Buffer src;
+  float amp;
+  int dur;
+  float freq;
   
     
   // constructor
   // pitch from Hz freq.
-  Sample(String s, int a, int f) {
-    src = s;
+  Sample(String s, float a, int d, int f) {
+    src = findWaveForm(s);
     amp = a;
+    dur = d;
     freq = f;
   }
   
   // pitch from music note
-  Sample(String s, int a, String n) {
-    src = s;
+  Sample(String s, float a, int d, String n, int o) {
+    src = findWaveForm(s);
     amp = a;
-    note = n;
-    
-    //freq = 
+    dur = d;
+    freq = noteToHz(n, o);
   }
   
   
   // methods
   void playSound() {
-    
+    WavePlayer wp1 = new WavePlayer(ac, freq, src);
+    ac.out.addInput(wp1);
+    ac.start();
+    delay(dur);
+    ac.stop();
   }
   
-  void stopSound() {
+  Buffer findWaveForm(String s) {
+    if (s.equalsIgnoreCase("sine") || s.equalsIgnoreCase("sin")) {
+      return Buffer.SINE;
+    } else if (s.equalsIgnoreCase("square") || s.equalsIgnoreCase("sqr")) {
+      return Buffer.SQUARE;
+    } else if (s.equalsIgnoreCase("triangle") || s.equalsIgnoreCase("tri")) {
+      return Buffer.TRIANGLE;
+    } else if (s.equalsIgnoreCase("SAW")) {
+      return Buffer.SAW;
+    } else {
+      return Buffer.NOISE;
+    }
   }
 }

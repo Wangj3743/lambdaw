@@ -58,20 +58,21 @@ int[] findCommas(String curr, int numPara) {             // account for other co
 void importWaveform(String[] fileImport, String waveForm, int index1, int index2) {
     for (int j=index1+1; j<index2-1; ++j) {
       String curr = fileImport[j];
-      int[] commas = findCommas(curr, 3);
+      int[] commas = findCommas(curr, 4);
       String s = waveForm;                                      // source
       float a = float(curr.substring(0, commas[0]));            // amplitude
-      int d = int(curr.substring(commas[0]+2, commas[1]));      // duration
-      String n = curr.substring(commas[1]+2, commas[2]);        // note
-      int o = int(curr.substring(commas[2]+2, curr.length()));  // octave
-      println(s, a, d, n, o);
+      float b = float(curr.substring(commas[0]+2, commas[1]));  // beginning beat
+      float d = int(curr.substring(commas[1]+2, commas[2]));    // duration
+      String n = curr.substring(commas[2]+2, commas[3]);        // note
+      int o = int(curr.substring(commas[3]+2, curr.length()));  // octave
+      println(s, a, b, d, n, o);
       if (s.equals("sine"))
-        sinTrack.samples.add(new Sample(s, a, d, n, o));
+        sinTrack.samples.add(new Sample(s, a, b, d, n, o));
       else if (s.equals("square"))
-        sqrTrack.samples.add(new Sample(s, a, d, n, o));
+        sqrTrack.samples.add(new Sample(s, a, b, d, n, o));
       else if (s.equals("triangle"))
-        triTrack.samples.add(new Sample(s, a, d, n, o));
+        triTrack.samples.add(new Sample(s, a, b, d, n, o));
       else if (s.equals("saw"))
-        sawTrack.samples.add(new Sample(s, a, d, n, o));
+        sawTrack.samples.add(new Sample(s, a, b, d, n, o));
     }
 }

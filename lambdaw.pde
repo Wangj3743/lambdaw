@@ -8,11 +8,12 @@ SinOsc sin;
 SqrOsc sqr;
 TriOsc tri;
 SawOsc saw;
-
 Track sinTrack = new Track();
 Track sqrTrack = new Track();
 Track triTrack = new Track();
 Track sawTrack = new Track();
+
+
 
 
 void setup() {
@@ -35,4 +36,5 @@ void draw() {
   //rect();
 
   sinTrack.playInstrument();
+  sqrTrack.playInstrument();
 }

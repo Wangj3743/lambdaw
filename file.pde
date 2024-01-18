@@ -24,7 +24,7 @@ void importProject(String[] fileImport) {
     String n = curr.substring(commas[1]+2, commas[2]);  // note
     int o = int(curr.substring(commas[2]+2, curr.length()));  // octave
     
-    sineTrack.samples.add(new Sample(s, a, d, n, o));
+    sinTrack.samples.add(new Sample(s, a, d, n, o));
   }
 }
 

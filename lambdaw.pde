@@ -9,12 +9,10 @@ SqrOsc sqr;
 TriOsc tri;
 SawOsc saw;
 
-Track sineTrack = new Track();
-
-//Sample a = new Sample("sine", 0.5, 1000, "C", 4);
-//Sample b = new Sample("sine", 0.5, 500, "C", 4);
-//Sample c = new Sample("sine", 0.5, 500, "D", 4);
-//Sample d = new Sample("sine", 0.5, 1000, "D#", 4);
+Track sinTrack = new Track();
+Track sqrTrack = new Track();
+Track triTrack = new Track();
+Track sawTrack = new Track();
 
 
 void setup() {
@@ -40,5 +38,5 @@ void draw() {
   //b.playSound();
   //c.playSound();
   //d.playSound();
-  sineTrack.playInstrument();
+  sinTrack.playInstrument();
 }

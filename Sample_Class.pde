@@ -33,28 +33,34 @@ class Sample {
   // methods
   void playSound() {
     if (src.equals("sine")) {
-        sin.play();
         sin.amp(amp);
         sin.freq(freq);
-        delay(int((60.0/bpm)*dur*1000));
-        sin.stop();
+        sin.play();
     } else if (src.equals("square")) {
         sqr.play();
         sqr.amp(amp);
         sqr.freq(freq);
-        delay(int((60.0/bpm)*dur*1000));
-        sqr.stop();
     } else if (src.equals("triangle")) {
         tri.play();
         tri.amp(amp);
         tri.freq(freq);
-        delay(int((60.0/bpm)*dur*1000));
-        tri.stop();
     } else if (src.equals("saw")) {
         saw.play();
         saw.amp(amp);
         saw.freq(freq);
-        delay(int((60.0/bpm)*dur*1000));
+    } else  {
+      // white noise
+    }
+  }
+  
+  void stopSound() {
+    if (src.equals("sine")) {
+        sin.stop();
+    } else if (src.equals("square")) {
+        sqr.stop();
+    } else if (src.equals("triangle")) {
+        tri.stop();
+    } else if (src.equals("saw")) {
         saw.stop();
     } else  {
       // white noise

@@ -21,7 +21,7 @@ Track whiteTrack = new Track();
 
 
 void setup() {
-  size(640, 360);
+  size(1280, 720);
   background(255);
 
   sin = new SinOsc(this);
@@ -32,6 +32,8 @@ void setup() {
 
   String[] fileImport = loadStrings("input.txt");
   importProject(fileImport);  // imports a file called 'input.txt'
+  
+  playTrack();
 }
 
 void draw() {
@@ -44,7 +46,7 @@ void draw() {
 
   //sinTrack.playInstrument();
   //sqrTrack.playInstrument();
-  playTrack();
+  
 }
 
 void playTrack() {
@@ -53,22 +55,28 @@ void playTrack() {
   int currTri = 0;
   int currSaw = 0;
   
+  
   println("********************************************************************************\n", 
             "Title:", title, "\n" +
             "Author:", author, "\n" +
             "Arr.:", arranger, "\n" + 
             "********************************************************************************\n\n");
   
-  while (true) {                                            // needs exit condition       
-    if (sinTrack.samples.get(currSin).beat == beat) {
-      Sample currSample = sinTrack.samples.get(currSin);
+  while (true) {                                            // needs exit condition
+    Sample currSinSample = sinTrack.samples.get(currSin);
+    
+    if (currSinSample.beat == beat) {
       println("beat #" + beat + "\t", 
-              "for", currSample.dur, "beats   \t",
+              "for", currSinSample.dur, "beats   \t",
               "SIN #" + currSin + "  \t", 
-              currSample.note + Integer.toString(currSample.octave), "note (" + currSample.freq + "Hz)");
-      currSample.playSound();
+              currSinSample.note + Integer.toString(currSinSample.octave), "note (" + currSinSample.freq + "Hz)");
+      currSinSample.playSound();
+    } else if (currSinSample.beat + currSinSample.dur == beat) {
+      currSinSample.stopSound();
       currSin++;
-    } 
+      println("currSin:", currSin);
+    }
+    //println("broken");
     
     //if (sqrTrack.samples.get(currSqr).beat == beat) {
     //  Sample currSample = sqrTrack.samples.get(currSqr);

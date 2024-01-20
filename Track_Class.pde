@@ -8,7 +8,7 @@ class Track {
   
   
   // methods
-  void playInstrument() {
+  void playTrack() {
     for (int i=0; i<samples.size(); ++i) {
       samples.get(i).playSound();
     }

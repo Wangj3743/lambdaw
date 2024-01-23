@@ -8,6 +8,8 @@ float bpm = 120;                 // default
 float beat = 0;
 float time = 0;
 boolean playSong = true;
+int vertScroll = 4; // octave
+int horiScroll = 0;
 
 SinOsc sin;
 SqrOsc sqr;
@@ -23,6 +25,8 @@ int currSin = 0;
 int currSqr = 0;
 int currTri = 0;
 int currSaw = 0;
+
+Pianoroll pianoroll = new Pianoroll();
 
 
 
@@ -40,12 +44,14 @@ void setup() {
   String[] fileImport = loadStrings("input.lamb");
   importProject(fileImport);  // imports a file called 'input.lamb'
   
-  
+  background(36, 36, 37);
+  pianoroll.drawKeys();
 }
 
 void draw() {
-  // GUI
-  background(36, 36, 37);
+  // drawing the program
+  
+  
   //fill()
   //rect();
   if (playSong == true) {

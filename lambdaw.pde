@@ -1,4 +1,5 @@
 import processing.sound.*;
+//import g4p_tools.*;
 
 String title = "Title";          // default
 String author = "Author";        // default
@@ -6,6 +7,7 @@ String arranger = "Arranger";    // default
 float bpm = 120;                 // default
 float beat = 0;
 float time = 0;
+boolean playSong = true;
 
 SinOsc sin;
 SqrOsc sqr;
@@ -17,12 +19,17 @@ Track sqrTrack = new Track();
 Track triTrack = new Track();
 Track sawTrack = new Track();
 Track whiteTrack = new Track();
+int currSin = 0;
+int currSqr = 0;
+int currTri = 0;
+int currSaw = 0;
 
 
 
 void setup() {
   size(1280, 720);
   background(255);
+  frameRate(60);
 
   sin = new SinOsc(this);
   sqr = new SqrOsc(this);
@@ -30,10 +37,10 @@ void setup() {
   saw = new SawOsc(this);
   white = new WhiteNoise(this);
 
-  String[] fileImport = loadStrings("input.txt");
-  importProject(fileImport);  // imports a file called 'input.txt'
+  String[] fileImport = loadStrings("input.lamb");
+  importProject(fileImport);  // imports a file called 'input.lamb'
   
-  playTrack();
+  
 }
 
 void draw() {
@@ -41,73 +48,76 @@ void draw() {
   background(36, 36, 37);
   //fill()
   //rect();
-
-
-
+  if (playSong == true) {
+    playSong();
+  }
+  
   //sinTrack.playInstrument();
   //sqrTrack.playInstrument();
   
+  //noLoop();
+  
+  beat += bpm/3600;                                          // += something (1/16 of a beats based on bpm * time)?
 }
 
-void playTrack() {
-  int currSin = 0;
-  int currSqr = 0;
-  int currTri = 0;
-  int currSaw = 0;
-  
-  
-  println("********************************************************************************\n", 
-            "Title:", title, "\n" +
-            "Author:", author, "\n" +
-            "Arr.:", arranger, "\n" + 
-            "********************************************************************************\n\n");
-  
-  while (true) {                                            // needs exit condition
-    Sample currSinSample = sinTrack.samples.get(currSin);
-    
-    if (currSinSample.beat == beat) {
-      println("beat #" + beat + "\t", 
-              "for", currSinSample.dur, "beats   \t",
-              "SIN #" + currSin + "  \t", 
-              currSinSample.note + Integer.toString(currSinSample.octave), "note (" + currSinSample.freq + "Hz)");
-      currSinSample.playSound();
-    } else if (currSinSample.beat + currSinSample.dur == beat) {
-      currSinSample.stopSound();
-      currSin++;
-      println("currSin:", currSin);
-    }
-    //println("broken");
-    
-    //if (sqrTrack.samples.get(currSqr).beat == beat) {
-    //  Sample currSample = sqrTrack.samples.get(currSqr);
-    //  println("beat #" + beat + "\t", 
-    //          "for", currSample.dur, "beats   \t",
-    //          "SQR #" + currSqr + "  \t", 
-    //          currSample.note + Integer.toString(currSample.octave), "note (" + currSample.freq + "Hz)");
-    //  sqrTrack.samples.get(currSqr).playSound();
-    //  currSqr++;
-    //} 
-    
-    //if (triTrack.samples.get(currTri).beat == beat) {
-    //  Sample currSample = triTrack.samples.get(currTri);
-    //  println("beat #" + beat + "\t", 
-    //          "for", currSample.dur, "beats   \t",
-    //          "TRI #" + currTri + "  \t", 
-    //          currSample.note + Integer.toString(currSample.octave), "note (" + currSample.freq + "Hz)");
-    //  triTrack.samples.get(currTri).playSound();
-    //  currTri++;
-    //} 
-    
-    //if (sawTrack.samples.get(currSaw).beat == beat) {
-    //  Sample currSample = sawTrack.samples.get(currSaw);
-    //  println("beat #" + beat + "\t", 
-    //          "for", currSample.dur, "beats   \t",
-    //          "SAW #" + currSaw + "  \t", 
-    //          currSample.note + Integer.toString(currSample.octave), "note (" + currSample.freq + "Hz)");
-    //  sawTrack.samples.get(currSaw).playSound();
-    //  currSaw++;
-    //}
+void playSong() {
+  //println("********************************************************************************\n",
+  //        "Title: ", title, "\n",
+  //        "Author:", author, "\n",
+  //        "Arr.:  ", arranger, "\n",
+  //        "BPM:   ", bpm, "\n" + 
+  //        "********************************************************************************\n\n");
 
-    beat += 0.125;                                          // += something (x number of beats based on bpm)?
-  }
+    // SINE
+    if (currSin < sinTrack.samples.size()-1) {
+      Sample currSinSample = sinTrack.samples.get(currSin);
+      if (currSinSample.beat + currSinSample.dur <= beat && beat > 0) {
+        currSinSample.stopSound();
+        currSin++;
+        currSinSample = sinTrack.samples.get(currSin);
+      }
+      if (currSinSample.beat <= beat) { 
+        currSinSample.playSound();
+      } 
+    }
+    
+    // SQUARE
+    if (currSqr < sqrTrack.samples.size()-1) {
+      Sample currSqrSample = sqrTrack.samples.get(currSqr);
+      if (currSqrSample.beat + currSqrSample.dur <= beat && beat > 0) {
+        currSqrSample.stopSound();
+        currSqr++;
+        currSqrSample = sqrTrack.samples.get(currSqr);
+      }
+      if (currSqrSample.beat <= beat) { 
+        currSqrSample.playSound();
+      } 
+    }
+    
+    // TRIANGLE
+    if (currTri < triTrack.samples.size()-1) {
+      Sample currTriSample = triTrack.samples.get(currTri);
+      if (currTriSample.beat + currTriSample.dur <= beat && beat > 0) {
+        currTriSample.stopSound();
+        currTri++;
+        currTriSample = triTrack.samples.get(currTri);
+      }
+      if (currTriSample.beat <= beat) { 
+        currTriSample.playSound();
+      } 
+    }
+    
+    // SAW
+    if (currSaw < sawTrack.samples.size()-1) {
+      Sample currSawSample = sawTrack.samples.get(currSaw);
+      if (currSawSample.beat + currSawSample.dur <= beat && beat > 0) {
+        currSawSample.stopSound();
+        currSaw++;
+        currSawSample = sawTrack.samples.get(currSaw);
+      }
+      if (currSawSample.beat <= beat) {
+        currSawSample.playSound();
+      } 
+    }
+  //frameRate(60);
 }

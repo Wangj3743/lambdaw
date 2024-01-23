@@ -7,17 +7,10 @@ class Sample {
   String note;
   int octave;
   float freq;
+  String condition;
   
     
   // constructor
-  // pitch from Hz freq.
-  Sample(String s, float a, float d, float f) {
-    src = s;
-    amp = a;
-    dur = d;
-    freq = f;
-  }
-  
   // pitch from music note
   Sample(String s, float a, float b, float d, String n, int o) {
     src = s;                                                    // when finding source, regex for sine and etc
@@ -27,6 +20,22 @@ class Sample {
     note = n;
     octave = o;
     freq = noteToHz(n, o);
+    //println(s, a, b, d, n, o);
+  }
+  
+  // final end, start repeat, end repeat
+  Sample(String c) {
+    if (c.equals("end") || c.equals("END") || c.equals("||")){
+      condition = "end";
+    }
+  }
+  
+  // pitch from Hz freq.
+  Sample(String s, float a, float d, float f) {
+    src = s;
+    amp = a;
+    dur = d;
+    freq = f;
   }
   
   

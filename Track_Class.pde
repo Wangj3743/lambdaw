@@ -13,4 +13,13 @@ class Track {
       samples.get(i).playSound();
     }
   }
+  
+  float totalBeatDuration() {
+    if (samples.size()-1>0) {
+      Sample lastSample = samples.get(samples.size()-1);
+      return lastSample.dur + lastSample.beat;
+    }
+    else 
+      return 0;
+  }
 }

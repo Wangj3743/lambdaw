@@ -10,33 +10,17 @@ class Track {
   // methods
   void playTrack(String waveform) {
     Sample currWaveSample = null; //<>//
-    println(beat);
     if (waveform.equals("sin") && currSin < this.samples.size()) {
-      currWaveSample = sinTrack.samples.get(currSin);
-      if (beat > this.totalBeatDuration()) {
-        this.stopTrack("sin");
-        sinTrack.stopTrack("sin");
-        println("STOP PLEASE");
-      }
+        currWaveSample = sinTrack.samples.get(currSin);
     } else if (waveform.equals("tri") && currTri < this.samples.size()) {
-      currWaveSample = triTrack.samples.get(currTri);
-      if (beat > this.totalBeatDuration()) {
-        this.stopTrack("tri");
-      }
+        currWaveSample = triTrack.samples.get(currTri);
     } else if (waveform.equals("sqr") && currSqr < this.samples.size()) {
-      currWaveSample = sqrTrack.samples.get(currSqr);
-      if (beat > this.totalBeatDuration()) {
-        this.stopTrack("sqr");
-      }
+        currWaveSample = sqrTrack.samples.get(currSqr);
     } else if (waveform.equals("saw") && currSaw < this.samples.size()) {
-      currWaveSample = sawTrack.samples.get(currSaw);
-      if (beat > this.totalBeatDuration()) {
-        this.stopTrack("saw");
-      }
+        currWaveSample = sawTrack.samples.get(currSaw);
     } else {
       return;
     }
-    
     if (currWaveSample.beat + currWaveSample.dur <= beat && beat > 0) {
       currWaveSample.stopSound();
       if (waveform.equals("sin")) {
@@ -51,8 +35,7 @@ class Track {
       if (waveform.equals("saw")) {
         currSaw++;
       }
-    }
-    if (currWaveSample.beat <= beat) { 
+    } else if (currWaveSample.beat <= beat) { 
       currWaveSample.playSound();
     } 
   }

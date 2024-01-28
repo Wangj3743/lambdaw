@@ -30,7 +30,7 @@ class Pianoroll {
     strokeWeight(2);
     stroke(255,255,255);
     for (float i=0; i<(width/beatWidth); ++i) {
-      println(i);
+      //println(i);
       line(i*beatWidth+keyWidth, height, i*beatWidth+keyWidth, height/2);
     }
   }

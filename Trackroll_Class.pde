@@ -19,7 +19,7 @@ class Trackroll {
       Track currTrack = tracks.get(i);
       fill(255,133,133);
       stroke(0);
-      println(currTrack.totalBeatDuration());
+      //println(currTrack.totalBeatDuration());
       rect(0, i*trackHeight, currTrack.totalBeatDuration()*beatWidth, i*trackHeight+trackHeight);
     }
   }

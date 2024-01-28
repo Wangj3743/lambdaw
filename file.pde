@@ -7,7 +7,7 @@ void importProject(String[] fileImport) {
   int indexSAW = 0;
   
   // find index of titles
-  for (int i=0; i<fileImport.length; ++i) {              // switch to binary search!!!!!!
+  for (int i=0; i<fileImport.length; ++i) {
     if (fileImport[i].equals("# META")) 
       indexMETA = i;
     else if (fileImport[i].equals("# SCORE"))

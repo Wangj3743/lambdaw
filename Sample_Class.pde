@@ -13,7 +13,7 @@ class Sample {
   // constructor
   // pitch from music note
   Sample(String s, float a, float b, float d, String n, int o) {
-    src = s;                                                    // when finding source, regex for sine and etc
+    src = s;
     amp = a;
     beat = b;
     dur = d;
@@ -42,37 +42,37 @@ class Sample {
   // methods
   void playSound() {
     if (src.equals("sine")) {
-        sin.amp(amp);
-        sin.freq(freq);
-        sin.play();
+      sin.amp(amp);
+      sin.freq(freq);
+      sin.play();
     } else if (src.equals("square")) {
-        sqr.play();
-        sqr.amp(amp);
-        sqr.freq(freq);
+      sqr.play();
+      sqr.amp(amp);
+      sqr.freq(freq);
     } else if (src.equals("triangle")) {
-        tri.play();
-        tri.amp(amp);
-        tri.freq(freq);
+      tri.play();
+      tri.amp(amp);
+      tri.freq(freq);
     } else if (src.equals("saw")) {
-        saw.play();
-        saw.amp(amp);
-        saw.freq(freq);
-    } else  {
-      // white noise
+      saw.play();
+      saw.amp(amp);
+      saw.freq(freq);
+    } else {
+      return;
     }
   }
   
   void stopSound() {
     if (src.equals("sine")) {
-        sin.stop();
+      sin.stop();
     } else if (src.equals("square")) {
-        sqr.stop();
+      sqr.stop();
     } else if (src.equals("triangle")) {
-        tri.stop();
+      tri.stop();
     } else if (src.equals("saw")) {
-        saw.stop();
-    } else  {
-      // white noise
+      saw.stop();
+    } else {
+      return;
     }
   }
 }

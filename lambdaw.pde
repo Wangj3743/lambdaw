@@ -1,5 +1,5 @@
 import processing.sound.*;
-//import g4p_tools.*;
+import g4p_controls.*;
 
 String title = "Title";          // default
 String author = "Author";        // default
@@ -7,7 +7,7 @@ String arranger = "Arranger";    // default
 float bpm = 120;                 // default
 float beat = 0;
 float time = 0;
-boolean playSong = true;
+boolean playSong = false;
 int vertScroll = 4; // octave
 int horiScroll = 0;
 float beatWidth =  50; // width of each beat 
@@ -33,6 +33,7 @@ Trackroll trackroll = new Trackroll();
 
 
 void setup() {
+  createGUI();
   size(1280, 720);
   background(255);
   frameRate(60);
@@ -52,19 +53,18 @@ void setup() {
   pianoroll.drawVertLines();
   
   trackroll.drawTracks();
-  
-  println(sinTrack.totalBeatDuration());
+  //trackroll.drawHoriLines();
+  //trackroll.drawVertLines();
 }
 
 void draw() {
   // drawing the program
-  
-  
   if (playSong == true) {
     playSong();
+    beat += bpm/3600;
   }
+  //println(beat);
   
-  beat += bpm/3600;
 }
 
 void playSong() {
@@ -75,55 +75,8 @@ void playSong() {
   //        "BPM:   ", bpm, "\n" + 
   //        "********************************************************************************\n\n");
 
-  // SINE
-  if (currSin < sinTrack.samples.size()-1) {
-    Sample currSinSample = sinTrack.samples.get(currSin);
-    if (currSinSample.beat + currSinSample.dur <= beat && beat > 0) {
-      currSinSample.stopSound();
-      currSin++;
-      currSinSample = sinTrack.samples.get(currSin);
-    }
-    if (currSinSample.beat <= beat) { 
-      currSinSample.playSound();
-    } 
-  }
-  
-  // SQUARE
-  if (currSqr < sqrTrack.samples.size()-1) {
-    Sample currSqrSample = sqrTrack.samples.get(currSqr);
-    if (currSqrSample.beat + currSqrSample.dur <= beat && beat > 0) {
-      currSqrSample.stopSound();
-      currSqr++;
-      currSqrSample = sqrTrack.samples.get(currSqr);
-    }
-    if (currSqrSample.beat <= beat) { 
-      currSqrSample.playSound();
-    } 
-  }
-  
-  // TRIANGLE
-  if (currTri < triTrack.samples.size()-1) {
-    Sample currTriSample = triTrack.samples.get(currTri);
-    if (currTriSample.beat + currTriSample.dur <= beat && beat > 0) {
-      currTriSample.stopSound();
-      currTri++;
-      currTriSample = triTrack.samples.get(currTri);
-    }
-    if (currTriSample.beat <= beat) { 
-      currTriSample.playSound();
-    } 
-  }
-  
-  // SAW
-  if (currSaw < sawTrack.samples.size()-1) {
-    Sample currSawSample = sawTrack.samples.get(currSaw);
-    if (currSawSample.beat + currSawSample.dur <= beat && beat > 0) {
-      currSawSample.stopSound();
-      currSaw++;
-      currSawSample = sawTrack.samples.get(currSaw);
-    }
-    if (currSawSample.beat <= beat) {
-      currSawSample.playSound();
-    } 
-  }
+  sinTrack.playTrack("sin");
+  triTrack.playTrack("tri");
+  sqrTrack.playTrack("sqr");
+  sawTrack.playTrack("saw");
 }

@@ -75,4 +75,8 @@ class Sample {
       return;
     }
   }
+  
+  void drawSample() {
+    
+  }
 }

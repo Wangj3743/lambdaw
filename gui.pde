@@ -36,6 +36,10 @@ public void stopSong(GButton source, GEvent event) { //_CODE_:stopButton:695609:
   triTrack.stopTrack("tri");
   sqrTrack.stopTrack("sqr");
   sawTrack.stopTrack("saw");
+  currSin = 0;
+  currTri = 0;
+  currSqr = 0;
+  currSaw = 0;
   beat = 0;
 } //_CODE_:stopButton:695609:
 
@@ -88,7 +92,7 @@ public void createGUI(){
   projectManagement.setTextAlign(GAlign.CENTER, GAlign.MIDDLE);
   projectManagement.setText("Project Management");
   projectManagement.setOpaque(false);
-  exportButton = new GButton(window1, 130, 40, 110, 30);
+  exportButton = new GButton(window1, 130, 39, 110, 30);
   exportButton.setText("Export .lamb");
   exportButton.setLocalColorScheme(GCScheme.CYAN_SCHEME);
   exportButton.addEventHandler(this, "exportFile");

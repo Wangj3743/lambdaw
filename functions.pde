@@ -39,3 +39,24 @@ int binarySearch(String[] arr, String tar, int start, int end) {
     }
   }
 }
+
+
+void drawVertLines() {
+  textSize(30);
+  
+  strokeWeight(2);
+  stroke(255,255,255);
+  for (int i=0; i<(width/beatWidth); ++i) {
+    // vertical lines
+    line(i*beatWidth+keyWidth, height, i*beatWidth+keyWidth, 0);
+  }
+  
+  fill(26,26,26);
+  rect(0, height-15*keyHeight, width, 3*keyHeight);
+  
+  for (int i=0; i<(width/beatWidth); ++i) {
+    // beat # text
+    fill(255);
+    text(i, keyWidth+i*beatWidth, height-13*keyHeight-5);
+  }
+}

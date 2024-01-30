@@ -1,18 +1,17 @@
 class Playhead {
   // fields
-  Boolean playing;
+  PVector pos;
   
   // constructor
   Playhead() {
-    playing = false;
   }
   
   
   // methods
-  void drawPlayhead(float x, float y, float h) {  // draw playhead
+  void move() {  // draw playhead
     // main line
     
-    line(x, y, x, h);
+    //line(x, y, x, h);
     
     //top section
     

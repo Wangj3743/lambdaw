@@ -3,9 +3,7 @@ class Pianoroll {
   
   
   // constructor
-  Pianoroll() {
-    
-  }
+  Pianoroll() {}
   
   
   // methods
@@ -15,6 +13,7 @@ class Pianoroll {
     
     for (int i=0; i<12; ++i) {
       noStroke();
+      
       if (noteLetters[i].contains("#")) {
         // BLACK KEYS
         fill(0);
@@ -22,7 +21,6 @@ class Pianoroll {
         // BLACK KEY TEXT
         fill(255);
         text(noteLetters[i], keyWidth-keyWidth/2, height-keyHeight/2-i*keyHeight+10); 
-        // BLACK KEY BG
         
       } else {
         // WHITE KEYS
@@ -32,9 +30,10 @@ class Pianoroll {
         fill(0);
         text(noteLetters[i], keyWidth-keyWidth/2, height-keyHeight/2-i*keyHeight+10); 
       }
-        // key lines
-        stroke(255);
-        line(0, height-keyHeight-i*keyHeight, width, height-keyHeight-i*keyHeight); 
+      
+      // key lines
+      stroke(255);
+      line(0, height-keyHeight-i*keyHeight, width, height-keyHeight-i*keyHeight); 
     }
   }
 }

@@ -1,15 +1,17 @@
 class Track {
   // fields
   ArrayList<Sample> samples = new ArrayList<Sample>();
-    
+  
+  
   // constructor
-  Track() {
-  }
+  Track() {}
   
   
   // methods
   void playTrack(String waveform) {
     Sample currWaveSample = null; //<>//
+    
+    // get curr wave sample
     if (waveform.equals("sin") && currSin < this.samples.size()) {
         currWaveSample = sinTrack.samples.get(currSin);
     } else if (waveform.equals("tri") && currTri < this.samples.size()) {
@@ -21,6 +23,8 @@ class Track {
     } else {
       return;
     }
+    
+    // stop sounds from each track
     if (currWaveSample.beat + currWaveSample.dur <= beat && beat > 0) {
       currWaveSample.stopSound();
       if (waveform.equals("sin")) {
@@ -36,6 +40,7 @@ class Track {
         currSaw++;
       }
     } else if (currWaveSample.beat <= beat) { 
+      // stop sounds from each track
       currWaveSample.playSound();
     } 
   }
@@ -61,5 +66,12 @@ class Track {
     }
     else 
       return 0;
+  }
+  
+  // draws track (draws all of it's samples)
+  void drawTrack() {
+    for (int i=0; i<this.samples.size(); ++i) {
+      this.samples.get(i).drawSample();
+    }
   }
 }

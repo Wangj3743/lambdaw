@@ -21,6 +21,7 @@ class Trackroll {
       Track currTrack = tracks.get(i);
       String text = "SIN";
 
+      // change color depending on waveform
       if (i == 0) {
         fill(0xcceb4f65);
       } else if (i == 1) {
@@ -33,10 +34,11 @@ class Trackroll {
         fill(0xccf6d03e);
         text = "SAW";
       }
+      
       rect(0, i*trackHeight, keyWidth+currTrack.totalBeatDuration()*beatWidth, trackHeight);
       
       fill(255);
-      text(text, keyWidth/2, i*beatWidth+33);
+      text(text, keyWidth/2, i*trackHeight+33);
     }
   }
 }

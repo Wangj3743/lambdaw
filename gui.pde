@@ -21,7 +21,7 @@ synchronized public void win_draw3(PApplet appc, GWinData data) { //_CODE_:windo
 public void playSong(GButton source, GEvent event) { //_CODE_:playButton:297852:
   if (playSong == false) { // curr not playing, play
     playSong = true;
-  } else if (playSong == true) { // curr playing, pause
+  } else { // curr playing, pause
     playSong = false;
     sinTrack.stopTrack("sin");
     triTrack.stopTrack("tri");
@@ -44,20 +44,30 @@ public void stopSong(GButton source, GEvent event) { //_CODE_:stopButton:695609:
 } //_CODE_:stopButton:695609:
 
 public void importFile(GButton source, GEvent event) { //_CODE_:importButton:385551:
-  println("importButton - GButton >> GEvent." + event + " @ " + millis());
+  sinTrack.samples.clear();
+  triTrack.samples.clear();
+  sqrTrack.samples.clear();
+  sawTrack.samples.clear();
+  
+  selectInput("Select .lamb file", "importProject", new File(sketchPath() + "/"));
+  
 } //_CODE_:importButton:385551:
 
-public void exportFile(GButton source, GEvent event) { //_CODE_:exportButton:839331:
-  println("exportButton - GButton >> GEvent." + event + " @ " + millis());
-} //_CODE_:exportButton:839331:
+public void showSin(GButton source, GEvent event) { //_CODE_:showSinButton:890698:
+  showSin = !showSin;
+} //_CODE_:showSinButton:890698:
 
-public void createNote(GButton source, GEvent event) { //_CODE_:createNoteButton:890698:
-  println("createNoteButton - GButton >> GEvent." + event + " @ " + millis());
-} //_CODE_:createNoteButton:890698:
+public void showTri(GButton source, GEvent event) { //_CODE_:showTriButton:866397:
+  showTri = !showTri;
+} //_CODE_:showTriButton:866397:
 
-public void deleteNote(GButton source, GEvent event) { //_CODE_:deleteNoteButton:866397:
-  println("deleteNoteButton - GButton >> GEvent." + event + " @ " + millis());
-} //_CODE_:deleteNoteButton:866397:
+public void showSqr(GButton source, GEvent event) { //_CODE_:showSqrButton:342927:
+  showSqr = !showSqr;
+} //_CODE_:showSqrButton:342927:
+
+public void showSaw(GButton source, GEvent event) { //_CODE_:showSawButton:464865:
+  showSaw = !showSaw;
+} //_CODE_:showSawButton:464865:
 
 
 
@@ -74,7 +84,7 @@ public void createGUI(){
   window1.addDrawHandler(this, "win_draw3");
   playButton = new GButton(window1, 10, 130, 110, 30);
   playButton.setText("PLAY/PAUSE");
-  playButton.setLocalColorScheme(GCScheme.GOLD_SCHEME);
+  playButton.setLocalColorScheme(GCScheme.GREEN_SCHEME);
   playButton.addEventHandler(this, "playSong");
   stopButton = new GButton(window1, 130, 130, 110, 30);
   stopButton.setText("STOP");
@@ -84,7 +94,7 @@ public void createGUI(){
   musicControls.setTextAlign(GAlign.CENTER, GAlign.MIDDLE);
   musicControls.setText("Music Controls");
   musicControls.setOpaque(false);
-  importButton = new GButton(window1, 10, 40, 110, 30);
+  importButton = new GButton(window1, 10, 40, 230, 30);
   importButton.setText("Import .lamb");
   importButton.setLocalColorScheme(GCScheme.CYAN_SCHEME);
   importButton.addEventHandler(this, "importFile");
@@ -92,22 +102,25 @@ public void createGUI(){
   projectManagement.setTextAlign(GAlign.CENTER, GAlign.MIDDLE);
   projectManagement.setText("Project Management");
   projectManagement.setOpaque(false);
-  exportButton = new GButton(window1, 130, 39, 110, 30);
-  exportButton.setText("Export .lamb");
-  exportButton.setLocalColorScheme(GCScheme.CYAN_SCHEME);
-  exportButton.addEventHandler(this, "exportFile");
   musicCreation = new GLabel(window1, 80, 190, 90, 20);
   musicCreation.setTextAlign(GAlign.CENTER, GAlign.MIDDLE);
   musicCreation.setText("Music Creation");
   musicCreation.setOpaque(false);
-  createNoteButton = new GButton(window1, 10, 220, 110, 30);
-  createNoteButton.setText("Create Note");
-  createNoteButton.setLocalColorScheme(GCScheme.GREEN_SCHEME);
-  createNoteButton.addEventHandler(this, "createNote");
-  deleteNoteButton = new GButton(window1, 130, 220, 110, 30);
-  deleteNoteButton.setText("Delete Note");
-  deleteNoteButton.setLocalColorScheme(GCScheme.RED_SCHEME);
-  deleteNoteButton.addEventHandler(this, "deleteNote");
+  showSinButton = new GButton(window1, 10, 220, 110, 30);
+  showSinButton.setText("show/hide SIN");
+  showSinButton.setLocalColorScheme(GCScheme.RED_SCHEME);
+  showSinButton.addEventHandler(this, "showSin");
+  showTriButton = new GButton(window1, 130, 220, 110, 30);
+  showTriButton.setText("show/hide TRI");
+  showTriButton.addEventHandler(this, "showTri");
+  showSqrButton = new GButton(window1, 10, 260, 110, 30);
+  showSqrButton.setText("show/hide SQR");
+  showSqrButton.setLocalColorScheme(GCScheme.GREEN_SCHEME);
+  showSqrButton.addEventHandler(this, "showSqr");
+  showSawButton = new GButton(window1, 130, 260, 110, 30);
+  showSawButton.setText("show/hide SAW");
+  showSawButton.setLocalColorScheme(GCScheme.GOLD_SCHEME);
+  showSawButton.addEventHandler(this, "showSaw");
   window1.loop();
 }
 
@@ -119,7 +132,8 @@ GButton stopButton;
 GLabel musicControls; 
 GButton importButton; 
 GLabel projectManagement; 
-GButton exportButton; 
 GLabel musicCreation; 
-GButton createNoteButton; 
-GButton deleteNoteButton; 
+GButton showSinButton; 
+GButton showTriButton; 
+GButton showSqrButton; 
+GButton showSawButton; 

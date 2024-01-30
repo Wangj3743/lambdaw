@@ -58,7 +58,7 @@ class Sample {
       saw.amp(amp);
       saw.freq(freq);
     } else {
-      return;
+      println("ERR failed to play sound");
     }
   }
   
@@ -72,11 +72,28 @@ class Sample {
     } else if (src.equals("saw")) {
       saw.stop();
     } else {
-      return;
+      println("ERR failed to stop sound");
     }
   }
   
   void drawSample() {
+    String[] noteLetters = new String[] {"A", "A#", "B", "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#"};
+    int currNoteIndex = binarySearch(noteLetters, note, 0, 11);
+    fill(255,00,00);
+    noStroke();
     
+    // fill color based on waveform type
+    if (this.src == "sine") {
+      fill(0xcceb4f65);
+    } else if (this.src == "triangle") {
+      fill(0xcc1061af);
+    } else if (this.src == "square") {
+      fill(0xcc4fb44b);
+    } else if (this.src == "saw") {
+      fill(0xccf6d03e);
+    }
+    
+    //draw note (rounded corners; "oblong")
+    rect(this.beat*beatWidth+keyWidth, height-currNoteIndex*keyHeight, this.dur*beatWidth, keyHeight, 5, 5, 5, 5);
   }
 }

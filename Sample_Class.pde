@@ -94,6 +94,6 @@ class Sample {
     }
     
     //draw note (rounded corners; "oblong")
-    rect(this.beat*beatWidth+keyWidth, height-currNoteIndex*keyHeight, this.dur*beatWidth, keyHeight, 5, 5, 5, 5);
+    rect(this.beat*beatWidth+keyWidth, height-currNoteIndex*keyHeight, this.dur*beatWidth, -keyHeight, 5, 5, 5, 5);
   }
 }

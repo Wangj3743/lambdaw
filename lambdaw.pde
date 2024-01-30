@@ -1,3 +1,5 @@
+// install the "G4P" and "Sound" libraries !
+
 import processing.sound.*;
 import g4p_controls.*;
 
